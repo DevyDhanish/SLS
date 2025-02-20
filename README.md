@@ -1,0 +1,2 @@
+# SLS
+Solo Leveling System.
