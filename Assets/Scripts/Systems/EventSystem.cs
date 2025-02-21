@@ -42,10 +42,10 @@ public class EventSystem : Systems
     }
 
     // task completed event
-    public delegate void TaskCompleted(TaskResult t);
+    public delegate void TaskCompleted(Task t);
     public event TaskCompleted OnTaskComplete;
 
-    public void FireTaskCompleteEvent(TaskResult t){
+    public void FireTaskCompleteEvent(Task t){
         OnTaskComplete?.Invoke(t);
         Debug.Log("Fired {Task completed}");
     }
@@ -57,5 +57,14 @@ public class EventSystem : Systems
     public void FireOnGameSaved(){
         OnGameSaved?.Invoke();
         Debug.Log("Fired {Game Save}");
+    }
+
+    // when a task is added
+    public delegate void TaskAdded(Task t);
+    public event TaskAdded OnTaskAdded;
+
+    public void FireOnTaskAdded(Task t)
+    {
+        OnTaskAdded?.Invoke(t);
     }
 }

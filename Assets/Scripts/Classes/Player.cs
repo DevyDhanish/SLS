@@ -45,16 +45,18 @@ public class Player
     }
 
     // run this method when `taskcompleted even is fired`
-    private void updateStats(TaskResult t){
-        if(t.Type == TaskType.tasktype.STRENGTH)
+    private void updateStats(Task t){
+        TaskResult tr = t.getTaskResult();
+
+        if(tr.Type == TaskType.tasktype.STRENGTH)
         {
-            playerStats.incStrength(t.result);
+            playerStats.incStrength(tr.result);
             //playerStats.incStrength(500);
         }
 
-        if(t.Type == TaskType.tasktype.STAMINA)
+        if(tr.Type == TaskType.tasktype.STAMINA)
         {
-            playerStats.incStamina(t.result);
+            playerStats.incStamina(tr.result);
             //playerStats.incStamina(500);
         }
 

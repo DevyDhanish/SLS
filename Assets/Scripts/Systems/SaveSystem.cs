@@ -20,6 +20,8 @@ public class SaveSystem : Systems
 
     public void loadGameData()
     {
+        // gameData = null;
+        // return;
         if(File.Exists(savePath))
         {
             string serData = File.ReadAllText(savePath);

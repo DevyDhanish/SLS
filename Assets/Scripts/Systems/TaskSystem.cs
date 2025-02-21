@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TaskSystem : Systems
 {
     public static TaskSystem instance;
 
-    public Queue<Task> allTasks;
+    public List<Task> allTasks;
 
     private TaskSystem(){}
 
@@ -17,51 +18,100 @@ public class TaskSystem : Systems
         if(instance != this && instance != null) Destroy(gameObject);
         
         instance = this;
+    }
 
+    public void loadSavedTasks()
+    {
         if(SaveSystem.instance.gameData != null)
         {
-            List<Task> savedTasks = SaveSystem.instance.gameData.primaryTask;
-
-            instance.allTasks = new Queue<Task>(savedTasks);
+            Debug.Log("Loading tasks");
+            foreach(Task t in SaveSystem.instance.gameData.primaryTask)
+            {
+                pushTask(t);
+            }
         }
 
         else
         {
-            allTasks = new Queue<Task>();
-        }
+            allTasks = new List<Task>();
+        }   
     }
     // Don't use this you heard.
-    public Task getNextTask()
-    {
-        Debug.Log(allTasks.Peek().getDescription());
+    // public Task getNextTask()
+    // {
+    //     Debug.Log(allTasks.Peek().getDescription());
 
-        return allTasks.Dequeue();
+    //     return allTasks.Dequeue();
+    // }
+
+    public int getNewTaskID()
+    {
+        int id = allTasks.Count;
+
+        if(getTaskById(id) == null) return id;
+        else return id + 1;
     }
 
+    // when a task is added fire the task added event
     public void pushTask(Task task)
     {
-        allTasks.Enqueue(task);
+        allTasks.Add(task);
+        Debug.Log(task.description);
+        EventSystem.instance.FireOnTaskAdded(task);
     }
 
-    public Task getTask(){
-        if(allTasks.Count <= 0) return null;
+    // public Task getTask(){
+    //     if(allTasks.Count <= 0) return null;
 
-        return allTasks.Peek();
-    }
+    //     return allTasks.Peek();
+    // }
 
-    public void completeTask()
+    public List<Task> getAllTask()
     {
-        if(allTasks.Count <= 0) return;
+        return allTasks;
+    }
 
-        Task curntTask = allTasks.Peek();
+    public Task getTaskById(int id)
+    {
+        foreach(Task t in allTasks)
+        {
+            if(t.TaskId == id)
+            {
+                return t;
+            }
+        }
 
-        EventSystem.instance.FireTaskCompleteEvent(curntTask.getTaskResult());  // task is completed
-        EventSystem.instance.FireUpdatePlayerRankEvent(Player.instance);        // update the rank of player
+        return null;
+        // if((id) <= allTasks.Count && (id) >= 0) return allTasks[id];
+        // else return null;
+    }
+
+    public void completeTask(Task task)
+    {
+        foreach(Task t in allTasks)
+        {
+            if(task.TaskId == t.TaskId)
+            {
+                t.OnComplete();
+                EventSystem.instance.FireUpdatePlayerRankEvent(Player.instance);        // update the rank of player
         
-        allTasks.Dequeue();
+                //allTasks.Dequeue();
 
-        SaveSystem.instance.saveGameData(SaveSystem.instance.createGameData(Player.instance,
-        new List<Task>(allTasks),
-        new List<Task>()));     // save
+                allTasks.Remove(t);
+
+                SaveSystem.instance.saveGameData(SaveSystem.instance.createGameData(Player.instance,
+                new List<Task>(allTasks),
+                new List<Task>()));     // save
+                break;
+            }
+        }
+        
+
+        // if(allTasks.Count <= 0) return;
+
+        // Task curntTask = allTasks.Peek();
+
+        // EventSystem.instance.FireTaskCompleteEvent(curntTask.getTaskResult());  // task is completed
+
     }
 }

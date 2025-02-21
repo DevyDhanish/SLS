@@ -68,7 +68,9 @@
     <Compile Include="Assets/Scripts/Classes/GameData.cs" />
     <Compile Include="Assets/Scripts/Classes/Task.cs" />
     <Compile Include="Assets/Scripts/Classes/Stats.cs" />
+    <Compile Include="Assets/Scripts/Views/TaskSchedulerView.cs" />
     <Compile Include="Assets/Scripts/BehavioursComponents/YesNo_Notification.cs" />
+    <Compile Include="Assets/Scripts/Controllers/TaskUIController.cs" />
     <Compile Include="Assets/Scripts/Types/TaskType.cs" />
     <Compile Include="Assets/Scripts/interfaces/Notification.cs" />
     <Compile Include="Assets/Scripts/Systems/NotificationSystem.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Assets/Scripts/Views/HomeView.cs" />
     <Compile Include="Assets/Scripts/interfaces/View.cs" />
     <Compile Include="Assets/Scripts/BehavioursComponents/Ok_Notification.cs" />
+    <Compile Include="Assets/Scripts/Classes/TaskUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

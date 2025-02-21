@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,9 @@ public class HomeView : MonoBehaviour, View
 
     public TextMeshProUGUI taskText;
 
+    public GameObject taskViewParent;
+    public GameObject taskViewObj;
+
     private Task currentTask;
 
     public void OnClick()
@@ -14,30 +18,37 @@ public class HomeView : MonoBehaviour, View
         UISystem.instance.changeUIbyName("ProfileView");
     }
 
-    public void goNext()
-    {
-        TaskSystem.instance.completeTask();
-        refresh();
-    }
+    // public void onFinish(GameObject btn)
+    // {
+    //     TaskSystem.instance.completeTask(7);
+    //     refresh();
+    // }
 
     public void refresh(){
         Disable();
-        Start();
         Enable();
     }
 
-    private string gt()
-    {
-        string tasktext = "";
-        currentTask = TaskSystem.instance.getTask();
+    // private string gt()
+    // {
+    //     string tasktext = "";
+    //     currentTask = TaskSystem.instance.getTask();
 
-        if (currentTask != null) 
-        {
-            tasktext = currentTask.getDescription() + "[" + currentTask.getCount().ToString() + "]";
-        }
+    //     if (currentTask != null) 
+    //     {
+    //         tasktext = currentTask.getDescription() + "[" + currentTask.getCount().ToString() + "]";
+    //     }
 
-        return tasktext;
-    }
+    //     return tasktext;
+    // }
+
+    // private void cTaskView(Task t)
+    // {
+    //     GameObject tv = Instantiate(taskViewObj);
+    //     tv.transform.SetParent(taskViewParent.transform);
+
+    //     tv.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(t.description);
+    // }
 
     void Start()
     {
@@ -52,6 +63,17 @@ public class HomeView : MonoBehaviour, View
     public void Enable()
     {
         gameObject.SetActive(true);
-        taskText.SetText(gt());
+
+        // for(int i = 0; i < taskViewParent.transform.childCount; i++)
+        // {
+        //     Destroy(taskViewParent.transform.GetChild(i).gameObject);
+        // }
+
+        // List<Task> at = TaskSystem.instance.getAllTask();
+
+        // foreach(Task t in at)
+        // {
+        //     cTaskView(t);
+        // }
     }
 }
