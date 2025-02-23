@@ -26,7 +26,7 @@ public class TaskUIController : MonoBehaviour
     {
         GameObject taskUI = Instantiate(taskUiObject);
 
-        taskUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(addedTask.description);
+        taskUI.transform.GetComponentInChildren<TextMeshProUGUI>().SetText(addedTask.description);
 
         // add the TaskUI component and set the ID to correspond to the Task backend
         taskUI.AddComponent<TaskUI>();
