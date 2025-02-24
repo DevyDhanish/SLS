@@ -18,14 +18,18 @@ public class TaskSystem : Systems
         if(instance != this && instance != null) Destroy(gameObject);
         
         instance = this;
+
+        EventSystem.instance.OnGameLoad += loadSavedTasks;
     }
 
-    public void loadSavedTasks()
+    public void loadSavedTasks(GameData g)
     {
-        if(SaveSystem.instance.gameData != null)
+        if(g != null)
         {
-            Debug.Log("Loading tasks");
-            foreach(Task t in SaveSystem.instance.gameData.primaryTask)
+            allTasks.Clear();
+            Debug.Log("Loading saved tasks");
+
+            foreach(Task t in g.primaryTask)
             {
                 pushTask(t);
             }

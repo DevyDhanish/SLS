@@ -6,7 +6,7 @@ public class TaskSchedulerView : MonoBehaviour, View
 {
     public TextMeshProUGUI taskDesc;
     public TextMeshProUGUI taskType;
-    public TextMeshProUGUI taskSets;
+    public TMP_InputField taskSets;
 
     public void OnClickAdd()
     {
@@ -17,20 +17,31 @@ public class TaskSchedulerView : MonoBehaviour, View
             tt = TaskType.tasktype.STAMINA;
         }
 
-        if(taskType.text == "Strenght")
+        if(taskType.text == "Strength")
         {
             tt = TaskType.tasktype.STRENGTH;
         }
 
-        int set = 0;
+        string setText = taskSets.text.Trim();
 
-        Int32.TryParse(taskSets.text, out set);
+        if (int.TryParse(setText, out int setCount))
+        {
+            // result is your number, do what you need with it
+        }
+        else
+        {
+            Debug.Log("Invalid number format in TextMeshPro text. : " + setText);
+        }
+
+        // Debug.Log(taskSets.text);
+        // Int32.TryParse(taskSets.text, out set);
+        // Debug.Log(set);
 
         Task task = new Task(
             tt,
             TaskSystem.instance.getNewTaskID(),
             taskDesc.text,
-            set,
+            setCount,
             0,
             10
         );

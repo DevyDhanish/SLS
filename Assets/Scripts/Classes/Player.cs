@@ -17,31 +17,22 @@ public class Player
 
     public static void Init(String name)
     {
-        if(instance == null && SaveSystem.instance.gameData == null)
-        {
-            instance = new Player();
-
-            instance.Name = name;
-            instance.playerStats = new Stats();
-
-            instance.Rank = new Rank{
-                rank = "no rank",
-                maxscore = 0,
-                minscore = 0
-            };
-            // instance.profilePhoto = pfp;
-            // instance.Rank = rank;
-            // instance.Category = category;
-        }
-
-        if(SaveSystem.instance.gameData != null)
-        {
-            GameData savedGame = SaveSystem.instance.gameData;
-            instance = savedGame.playerInfo;
-        }
+        instance = new Player();
+        instance.Name = name;
+        instance.playerStats = new Stats();
+        instance.Rank = new Rank{
+            rank = "no rank",
+            maxscore = 0,
+            minscore = 0
+        };
+        Debug.Log("Created new player");
+        // instance.profilePhoto = pfp;
+        // instance.Rank = rank;
+        // instance.Category = category;
 
         EventSystem.instance.OnTaskComplete += instance.updateStats;
         EventSystem.instance.OnPlayerRankUp += instance.updateRank;  
+        EventSystem.instance.OnGameLoad += instance.loadPlayer;
     }
 
     // run this method when `taskcompleted even is fired`
@@ -67,5 +58,19 @@ public class Player
     {
         if(player.Rank != rank)
             player.Rank = rank;
+    }
+
+    // problem:
+    // the loading event happens in awake so it's fired way before the player get's to attach to it.
+    // that's why this method not getting executing when loading.
+    private void loadPlayer(GameData g)
+    {
+        Debug.Log("Loaded player");
+        // point to the loaded player, i hope the new one that get's created get's deleted.
+        instance = g.playerInfo;
+
+        EventSystem.instance.OnTaskComplete += instance.updateStats;
+        EventSystem.instance.OnPlayerRankUp += instance.updateRank;  
+        EventSystem.instance.OnGameLoad += instance.loadPlayer;
     }
 }

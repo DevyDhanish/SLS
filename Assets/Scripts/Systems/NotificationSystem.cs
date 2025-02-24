@@ -34,7 +34,7 @@ public class NotificationSystem : Systems
 
         public NotiType _type;
 
-        public delegate void _callback();
+        public delegate void _callback(GameObject n);
 
         public _callback okCallBack;
         public _callback yesCallBack;

@@ -5,9 +5,11 @@ using System.IO;
 public class SaveSystem : Systems
 {
 
-    public static SaveSystem instance;
+    public static SaveSystem instance {get; private set;}
 
-    public GameData gameData;
+    public GameData gameData {get; private set;}
+
+    public bool EnableLoading = true;
 
     private string savePath;
 
@@ -15,17 +17,18 @@ public class SaveSystem : Systems
     {
         instance = this;
         savePath = Application.persistentDataPath + "/gameData.json";
-        loadGameData(); // if there is a saved file load in as soon as game starts
     }
 
     public void loadGameData()
     {
-        // gameData = null;
-        // return;
+        if(!EnableLoading) return;
+        
         if(File.Exists(savePath))
         {
             string serData = File.ReadAllText(savePath);
             gameData = JsonUtility.FromJson<GameData>(serData);
+
+            EventSystem.instance.FireOnGameLoad(gameData);
         }
         else
         {
@@ -43,6 +46,6 @@ public class SaveSystem : Systems
     }
 
     public GameData createGameData(Player curPlayer, List<Task> pri, List<Task> sec){
-        return new GameData{playerInfo = curPlayer, primaryTask = pri, secondaryTask = sec};
+        return new GameData{ isRegistered = true, playerInfo = curPlayer, primaryTask = pri, secondaryTask = sec};
     }
 }

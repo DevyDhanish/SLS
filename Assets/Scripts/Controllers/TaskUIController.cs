@@ -1,21 +1,21 @@
+using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TaskUIController : MonoBehaviour
+public class TaskUIController : MonoBehaviour, Controllers
 {
     public GameObject taskUiObject;
 
-    void Start()
+    public void InitController()
     {
         EventSystem.instance.OnTaskAdded += OnTaskAdd;
         EventSystem.instance.OnTaskComplete += OnTaskCompleted;
 
-        TaskSystem.instance.loadSavedTasks(); // it will load saved tasks if any other wise it will set a new List of tasks.
+        //TaskSystem.instance.loadSavedTasks(); // it will load saved tasks if any other wise it will set a new List of tasks.
     }
 
-    public void OnTaskComBtnClick(int BtnID)
+    private void OnTaskComBtnClick(int BtnID)
     {
         TaskSystem.instance.completeTask(
             TaskSystem.instance.getTaskById(BtnID)
@@ -26,7 +26,13 @@ public class TaskUIController : MonoBehaviour
     {
         GameObject taskUI = Instantiate(taskUiObject);
 
-        taskUI.transform.GetComponentInChildren<TextMeshProUGUI>().SetText(addedTask.description);
+        taskUI.transform.GetComponentInChildren<TextMeshProUGUI>().SetText(
+            String.Format(
+                "[{0}] {1}",
+                addedTask.count.ToString(),
+                addedTask.description
+            )
+            );
 
         // add the TaskUI component and set the ID to correspond to the Task backend
         taskUI.AddComponent<TaskUI>();

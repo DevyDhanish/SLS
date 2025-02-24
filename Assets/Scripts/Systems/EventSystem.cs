@@ -59,6 +59,15 @@ public class EventSystem : Systems
         Debug.Log("Fired {Game Save}");
     }
 
+    // when game get's loaded
+    public delegate void GameLoaded(GameData g);
+    public event GameLoaded OnGameLoad;
+
+    public void FireOnGameLoad(GameData g)
+    {
+        OnGameLoad?.Invoke(g);
+    }
+
     // when a task is added
     public delegate void TaskAdded(Task t);
     public event TaskAdded OnTaskAdded;

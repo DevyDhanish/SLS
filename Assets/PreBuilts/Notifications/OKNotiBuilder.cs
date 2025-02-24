@@ -20,6 +20,6 @@ public class OKNotiBuilder : MonoBehaviour
 
     public void setOkCallBack(NotificationSystem.NotificationObj._callback callback)
     {
-        Button.GetComponent<Button>().onClick.AddListener(() => callback());
+        Button.GetComponent<Button>().onClick.AddListener(() => callback(this.gameObject));
     }
 }

@@ -9,7 +9,7 @@ public class Task
     public TaskType.tasktype type;
     public string description;
     public int count;    // For repetitions (e.g., pushups)
-    public int duration; // For time-based tasks (e.g., planks in seconds)
+    //public int duration; // For time-based tasks (e.g., planks in seconds)
     public int reward; // the amount of point to add to the stats of the player upon completion.
 
     public Task(TaskType.tasktype type, int id, string description, int count, int duration, int reward) {
@@ -17,7 +17,7 @@ public class Task
         this.type = type;
         this.description = description;
         this.count = count;
-        this.duration = duration;
+        //this.duration = duration;
         this.reward = reward;
     }
 
@@ -33,9 +33,9 @@ public class Task
         return count;
     }
 
-    public int getDuration() {
-        return duration;
-    }
+    // public int getDuration() {
+    //     return duration;
+    // }
 
     public TaskResult getTaskResult()
     {
