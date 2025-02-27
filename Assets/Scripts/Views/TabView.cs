@@ -9,7 +9,7 @@ public class TabView : MonoBehaviour
 
     public void goTs()
     {
-        UISystem.instance.changeUIbyName("TaskSchedule");
+        UISystem.instance.changeUIbyName("Task");
     }
 
     public void goProfile()
