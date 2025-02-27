@@ -15,7 +15,7 @@ public class RankupListener : MonoBehaviour
         NotificationSystem.instance.showNotification(
             NotificationSystem.instance.createNotification_typeOK(
                 "Congratulations",
-                String.Format("{0} has ranked up to {1}", p.Name, r.rank),
+                String.Format("{0} has ranked up to {1}", p.Name, r.rankTitle),
                 (GameObject g) => {
                     // do anything you want when player clicks ok
                     Debug.Log(p.Name);

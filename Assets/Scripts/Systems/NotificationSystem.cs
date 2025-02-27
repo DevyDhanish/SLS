@@ -8,23 +8,21 @@ public class NotificationSystem : Systems
 
     public override void Init()
     {
-        if(instance == null && instance != this)
+        if(instance != null && instance != this)
         {
             Destroy(gameObject);
         }
-
-        instance = this;
+        else
+        {
+            instance = this;
+        }
         notificationUI = NotificationUIController.GetComponent<NotificationUI>(); 
-    }
-
-    void Start()
-    {
-        
     }
 
     public enum NotiType{
         NOTI_OK,
         NOTI_YESNO,
+        NOTI_PROMPT,
     }
 
     public class NotificationObj
@@ -59,6 +57,20 @@ public class NotificationSystem : Systems
             _description = description,
             okCallBack = okCallBack,
             _type = NotiType.NOTI_OK,
+            defaultCallback = defaultCloseCallBack
+        };
+
+        return n;
+    }
+
+    public NotificationObj createNotification_typePROMPT(string title, string description, NotificationObj._callback okCallBack)
+    {
+        var n = new NotificationObj
+        {
+            _title = title,
+            _description = description,
+            okCallBack = okCallBack,
+            _type = NotiType.NOTI_PROMPT,
             defaultCallback = defaultCloseCallBack
         };
 

@@ -45,11 +45,14 @@ public class ProfileView : MonoBehaviour, View
     public void Enable()
     {
         gameObject.SetActive(true);
-        playerName.SetText(Player.instance.Name);
-        playerStamina.SetText("Stamina : " + Player.instance.playerStats.Stamina.ToString() + " Pts ");
-        playerStrength.SetText("Strength : " + Player.instance.playerStats.Strength.ToString() + " Pts ");
 
-        if(Player.instance.Rank != null)
-            playerRank.SetText(Player.instance.Rank.rank);
+        Player player = PlayerSystem.instance.currentPlayer;
+
+        playerName.SetText(player.Name);
+        playerStamina.SetText("Stamina : " + player.playerStats.Stamina.ToString() + " Pts ");
+        playerStrength.SetText("Strength : " + player.playerStats.Strength.ToString() + " Pts ");
+
+        if(player.Rank != null)
+            playerRank.SetText(player.Rank.rankTitle);
     }
 }

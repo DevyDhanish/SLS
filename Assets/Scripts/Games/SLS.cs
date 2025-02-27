@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SSL : MonoBehaviour, Game
 {
-    public GameObject initialUI;
     public GameObject systemInit;
 
     public void OnAwake(){
@@ -17,16 +16,30 @@ public class SSL : MonoBehaviour, Game
 
     public void OnStart()
     {
-        UISystem.instance.changeUI(initialUI.GetComponent<View>());
-
-
-        
+        // the player object depends on some events to the Init will make sure it's ready to listen
+        //Player.Init();
         // Init all the Controllers that control some thing one way or another
         // The reason to do it in `Start` rather than awake is. there might me some controller
         // the depends on the instance of some system or attatches it self to some event.
         // so to make sure that everything is available to the controller it's best to INIT them in Start
 
         systemInit.GetComponent<Systems>().InitAllControllers();
+
+        // UISystem.instance.changeUI(initialUI.GetComponent<View>());
+
+        // check if player is registered or not
+        // if yes -> home
+        // if no -> welcome
+        if(SaveSystem.instance.isPlayerRegistered())
+        {
+            UISystem.instance.changeUIbyName("Home");
+            SaveSystem.instance.loadGameData(); // run it at last so that everything is already created and it will just overwrite with saved information.
+        }
+        else
+        {
+            UISystem.instance.changeUIbyName("Welcome");
+        }
+        
         // Task task1 = new Task(TaskType.tasktype.STRENGTH, "Push-ups", 10, 0, 300);
         // Task task2 = new Task(TaskType.tasktype.STAMINA, "Plank hold", 0, 10, 300);
 
@@ -47,10 +60,7 @@ public class SSL : MonoBehaviour, Game
         // );
         
         // This is just a playerholder player creator it will be replaced by the `welcome player` screen and that will create the player.
-        Player.Init("Dhanish");
-
-        SaveSystem.instance.loadGameData(); // run it at last so that everything is already created and it will just overwrite with saved information.
-
+        //Player.Init("Dhanish");
     }
     
     public void OnRunning()

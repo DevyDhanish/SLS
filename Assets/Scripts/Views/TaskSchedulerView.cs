@@ -43,7 +43,7 @@ public class TaskSchedulerView : MonoBehaviour, View
             taskDesc.text,
             setCount,
             0,
-            10
+            SLSParameters.instance.getRewardOnTaskComplete()
         );
 
         TaskSystem.instance.pushTask(task);

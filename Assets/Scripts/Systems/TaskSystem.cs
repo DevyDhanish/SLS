@@ -92,23 +92,20 @@ public class TaskSystem : Systems
 
     public void completeTask(Task task)
     {
-        foreach(Task t in allTasks)
-        {
-            if(task.TaskId == t.TaskId)
-            {
-                t.OnComplete();
-                EventSystem.instance.FireUpdatePlayerRankEvent(Player.instance);        // update the rank of player
-        
-                //allTasks.Dequeue();
+        task.OnComplete();
+        allTasks.Remove(task);
+        // for(int i = 0; i < allTasks.Count; i++)
+        // {
+        //     if(task.TaskId == allTasks[i].TaskId)
+        //     {
+        //         task.OnComplete();
 
-                allTasks.Remove(t);
+        //         //EventSystem.instance.FireUpdatePlayerRankEvent(PlayerSystem.instance.currentPlayer);        // update the rank of player
+        //         //allTasks.Dequeue();
 
-                SaveSystem.instance.saveGameData(SaveSystem.instance.createGameData(Player.instance,
-                new List<Task>(allTasks),
-                new List<Task>()));     // save
-                break;
-            }
-        }
+        //         allTasks.Remove(task);
+        //     }
+        // }
         
 
         // if(allTasks.Count <= 0) return;

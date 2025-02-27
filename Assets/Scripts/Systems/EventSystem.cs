@@ -38,7 +38,7 @@ public class EventSystem : Systems
     public void FirePlayerRankedUpEvent(Player player, Rank rank)
     {
         OnPlayerRankUp?.Invoke(player, rank);
-        Debug.Log("Fired {Player ranked up} " + rank.rank);
+        Debug.Log("Fired {Player ranked up} " + rank.rankTitle);
     }
 
     // task completed event
