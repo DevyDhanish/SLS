@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Stats
+public class Stats : SavableObject<Stats.StatsSavableObject>
 {
     public enum StatsType
     {
@@ -12,6 +12,22 @@ public class Stats
     public int Strength {get; private set;}
     public int Stamina {get; private set;}
     public int Score {get; private set;}
+
+    public Stats(int strenght, int stamina, int score)
+    {
+        Strength = strenght;
+        Stamina = stamina;
+        Score = score;
+    }
+
+
+    [Serializable]
+    public class StatsSavableObject
+    {
+        public int strength;
+        public int stamina;
+        public int score;
+    }
 
     public static void updateStats(Stats instance, StatsType type, int value)
     {
@@ -36,5 +52,16 @@ public class Stats
 
     private void increaseStamina(int value){
         Stamina += value;
+    }
+
+    public StatsSavableObject getSavableObject()
+    {
+        StatsSavableObject s = new StatsSavableObject();
+
+        s.score = Score;
+        s.stamina = Stamina;
+        s.strength = Strength;
+
+        return s;
     }
 }

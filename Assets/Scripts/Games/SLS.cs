@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SSL : MonoBehaviour, Game
@@ -65,7 +66,13 @@ public class SSL : MonoBehaviour, Game
     
     public void OnRunning()
     {
-        // 
+        // js a placeholder.
+        if(PlayerSystem.instance.currentPlayer != null)
+        {
+            SaveSystem.instance.saveGameData(
+                SaveSystem.instance.createGameData()
+            );
+        }
     }
     
     public void OnPause()

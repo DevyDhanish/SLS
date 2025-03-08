@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Rank
+public class Rank : SavableObject<Rank.RankSavableObject>
 {
-    public string rankTitle {get; private set;}
-    public int rankThreshold {get; private set;}
+    public string RankTitle {get; private set;}
+    public int RankThreshold {get; private set;}
 
     public Rank(string title, int threshold)
     {
-        rankTitle = title;
-        rankThreshold = threshold;
+        RankTitle = title;
+        RankThreshold = threshold;
+    }
+
+    [Serializable]
+    public class RankSavableObject
+    {
+        public string rankTitle;
+        public int rankThreshold;
     }
 
     public static Rank getRank(int score)
@@ -19,7 +26,7 @@ public class Rank
         List<Rank> allRanks = getAllRanks();
         
         // Find the highest rank the player qualifies for
-        return allRanks.LastOrDefault(r => score >= r.rankThreshold) ?? allRanks.ElementAt(0); // Default to "Un-Ranked"
+        return allRanks.LastOrDefault(r => score >= r.RankThreshold) ?? allRanks.ElementAt(0); // Default to "Un-Ranked"
     }
 
     public static List<Rank> getAllRanks()
@@ -43,5 +50,15 @@ public class Rank
                 300
             ),
         };
+    }
+
+    public RankSavableObject getSavableObject()
+    {
+        RankSavableObject r = new RankSavableObject();
+
+        r.rankThreshold = RankThreshold;
+        r.rankTitle = RankTitle;
+
+        return r;
     }
 }

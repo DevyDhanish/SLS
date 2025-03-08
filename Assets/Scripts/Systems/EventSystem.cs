@@ -38,7 +38,7 @@ public class EventSystem : Systems
     public void FirePlayerRankedUpEvent(Player player, Rank rank)
     {
         OnPlayerRankUp?.Invoke(player, rank);
-        Debug.Log("Fired {Player ranked up} " + rank.rankTitle);
+        Debug.Log("Fired {Player ranked up} " + rank.RankTitle);
     }
 
     // task completed event
@@ -60,12 +60,12 @@ public class EventSystem : Systems
     }
 
     // when game get's loaded
-    public delegate void GameLoaded(GameData g);
+    public delegate void GameLoaded(SaveObject so);
     public event GameLoaded OnGameLoad;
 
-    public void FireOnGameLoad(GameData g)
+    public void FireOnGameLoad(SaveObject so)
     {
-        OnGameLoad?.Invoke(g);
+        OnGameLoad?.Invoke(so);
     }
 
     // when a task is added

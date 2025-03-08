@@ -2,11 +2,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TaskSystem : Systems
+public class TaskSystem : Systems, SavableObject<List<TaskSystem.TaskSaveObject>>
 {
     public static TaskSystem instance;
 
-    public List<Task> allTasks;
+    public List<Task> allTasks = new List<Task>();
+
+    [System.Serializable]
+    public class TaskSaveObject
+    {
+        public int TaskId;
+        public TaskType.tasktype type;
+        public string description;
+        public int count;
+        //public int duration; // For time-based tasks (e.g., planks in seconds)
+        public int reward;
+    }
 
     private TaskSystem(){}
 
@@ -22,16 +33,25 @@ public class TaskSystem : Systems
         EventSystem.instance.OnGameLoad += loadSavedTasks;
     }
 
-    public void loadSavedTasks(GameData g)
+    public void loadSavedTasks(SaveObject so)
     {
-        if(g != null)
+        if(so != null)
         {
             allTasks.Clear();
             Debug.Log("Loading saved tasks");
 
-            foreach(Task t in g.primaryTask)
+            foreach(TaskSaveObject t in so.pendingTasks)
             {
-                pushTask(t);
+                Task newTask = new Task(
+                    t.type,
+                    t.TaskId,
+                    t.description,
+                    t.count,
+                    0,
+                    t.reward
+                );
+
+                pushTask(newTask);
             }
         }
 
@@ -40,6 +60,7 @@ public class TaskSystem : Systems
             allTasks = new List<Task>();
         }   
     }
+    
     // Don't use this you heard.
     // public Task getNextTask()
     // {
@@ -114,5 +135,24 @@ public class TaskSystem : Systems
 
         // EventSystem.instance.FireTaskCompleteEvent(curntTask.getTaskResult());  // task is completed
 
+    }
+
+    public List<TaskSaveObject> getSavableObject()
+    {
+        List<TaskSaveObject> Ltso = new List<TaskSaveObject>();
+
+        foreach(Task ta in allTasks)
+        {
+            TaskSaveObject tso = new TaskSaveObject();
+            tso.TaskId = ta.TaskId;
+            tso.type =  ta.type;
+            tso.description = ta.description;
+            tso.count = ta.count;
+            tso.reward = ta.reward;
+
+            Ltso.Add(tso);
+        }
+
+        return Ltso;
     }
 }

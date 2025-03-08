@@ -2,15 +2,15 @@ using System;
 using UnityEngine;
 
 
+
 public class Player
 {
     public string Name {get; private set;}
-    public Rank Rank {get; private set;}
-    // public int Score {get; private set;}
+    public Rank Rank {get; private set;}// public int Score {get; private set;}
     public Stats playerStats {get; private set;}
     public string Category {get; private set;}
 
-    public Player(string name, Rank rank, int score, Stats stats, string category)
+    public Player(string name, Rank rank, Stats stats, string category)
     {
         Name = name;
         Rank = rank;

@@ -1,11 +1,21 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerSystem : Systems
+public class PlayerSystem : Systems, SavableObject<PlayerSystem.playerSavableObject>
 {
     public static PlayerSystem instance;
 
     public Player currentPlayer {get; private set;}
+
+    [Serializable]
+    public class playerSavableObject
+    {
+        public string playerName;
+        public Rank.RankSavableObject rankSO;
+        public Stats.StatsSavableObject statsSO;
+        public string Category;
+    }
 
     public override void Init()
     {
@@ -19,6 +29,7 @@ public class PlayerSystem : Systems
         }
 
         EventSystem.instance.OnTaskComplete += onTaskCompleted;
+        EventSystem.instance.OnGameLoad += loadPlayer;
     }
 
     public void createNewPlayer(string name)
@@ -26,8 +37,11 @@ public class PlayerSystem : Systems
         currentPlayer = new Player(
             name,
             Rank.getRank(0),
-            0,
-            new Stats(),
+            new Stats(
+                0,
+                0,
+                0
+            ),
             ""
         );
     }
@@ -53,7 +67,7 @@ public class PlayerSystem : Systems
 
         Rank nextRank = Rank.getRank(currentPlayer.playerStats.Score);
 
-        if (nextRank != null && currentPlayer.Rank != null && nextRank.rankTitle != currentPlayer.Rank.rankTitle)
+        if (nextRank != null && currentPlayer.Rank != null && nextRank.RankTitle != currentPlayer.Rank.RankTitle)
         {
             // Fire ranked up event
             currentPlayer.setRank(nextRank);
@@ -61,9 +75,35 @@ public class PlayerSystem : Systems
         }
     }
 
-    // TODO: attach it to the game loaded event
-    public void loadPlayer(GameData playerData)
+    public playerSavableObject getSavableObject()
     {
+        playerSavableObject p = new playerSavableObject();
 
+        p.playerName = currentPlayer.Name;
+        p.Category = currentPlayer.Category;
+        p.statsSO = currentPlayer.playerStats.getSavableObject();
+        p.rankSO = currentPlayer.Rank.getSavableObject();
+
+        return p;
+    }
+
+    //TODO: attach it to the game loaded event
+    public void loadPlayer(SaveObject gameData)
+    {
+        Player p = new Player(
+            gameData.playerSO.playerName,
+            new Rank(
+                gameData.playerSO.rankSO.rankTitle,
+                gameData.playerSO.rankSO.rankThreshold
+            ),
+            new Stats(
+                gameData.playerSO.statsSO.strength,
+                gameData.playerSO.statsSO.stamina,
+                gameData.playerSO.statsSO.score
+            ),
+            ""
+        );
+
+        currentPlayer = p;
     }
 }
