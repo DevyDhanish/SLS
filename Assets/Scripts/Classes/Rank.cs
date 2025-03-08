@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Rank : SavableObject<Rank.RankSavableObject>
@@ -29,6 +30,22 @@ public class Rank : SavableObject<Rank.RankSavableObject>
         return allRanks.LastOrDefault(r => score >= r.RankThreshold) ?? allRanks.ElementAt(0); // Default to "Un-Ranked"
     }
 
+    public static Rank getNextRank(Rank currentRank)
+    {
+        List<Rank> allRanks = getAllRanks();
+
+        // Find the index of the current rank
+        int currentIndex = allRanks.FindIndex(0, allRanks.Count, (Rank r) => {
+            if(r.RankThreshold == currentRank.RankThreshold && r.RankTitle == currentRank.RankTitle) return true;
+            else return false;
+        });
+
+        // If rank is found and there's a next rank, return it. Otherwise, return the current rank.
+        if((currentIndex + 1) >= allRanks.Count) return currentRank;
+
+        return allRanks[currentIndex + 1];
+    }
+
     public static List<Rank> getAllRanks()
     {
         return new List<Rank>
@@ -38,15 +55,15 @@ public class Rank : SavableObject<Rank.RankSavableObject>
                 0
             ),
             new Rank(
-                "F-Rank",
+                "F",
                 100
             ),
             new Rank(
-                "E-Rank",
+                "E",
                 200
             ),
             new Rank(
-                "D-Rank",
+                "D",
                 300
             ),
         };

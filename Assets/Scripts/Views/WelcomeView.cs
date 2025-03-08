@@ -11,11 +11,10 @@ public class WelcomeView : MonoBehaviour, View
                 (GameObject g) => {
                     string playerName = g.GetComponent<PromptNotiBuilder>().getTextFromInputField();
                     PlayerSystem.instance.createNewPlayer(playerName);
+                    UISystem.instance.changeUIbyName("Home");
                 }
             )
         );
-
-        UISystem.instance.changeUIbyName("Home");
     }
 
     public void Disable()

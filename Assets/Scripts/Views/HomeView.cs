@@ -8,31 +8,15 @@ public class HomeView : MonoBehaviour, View
 
     public TextMeshProUGUI taskText;
 
+    public GameObject rankSlider;
     public GameObject taskViewParent;
     public GameObject taskViewObj;
-
-    private Task currentTask;
-
-    public void OnClick()
-    {
-        UISystem.instance.changeUIbyName("ProfileView");
-    }
-
-    public void goTS()
-    {
-        UISystem.instance.changeUIbyName("TaskSchedule");
-    }
 
     // public void onFinish(GameObject btn)
     // {
     //     TaskSystem.instance.completeTask(7);
     //     refresh();
     // }
-
-    public void refresh(){
-        Disable();
-        Enable();
-    }
 
     // private string gt()
     // {
@@ -63,22 +47,12 @@ public class HomeView : MonoBehaviour, View
     public void Disable()
     {
         gameObject.SetActive(false);
+        rankSlider.GetComponent<View>().Disable();
     }
 
     public void Enable()
     {
         gameObject.SetActive(true);
-
-        // for(int i = 0; i < taskViewParent.transform.childCount; i++)
-        // {
-        //     Destroy(taskViewParent.transform.GetChild(i).gameObject);
-        // }
-
-        // List<Task> at = TaskSystem.instance.getAllTask();
-
-        // foreach(Task t in at)
-        // {
-        //     cTaskView(t);
-        // }
+        rankSlider.GetComponent<View>().Enable();
     }
 }

@@ -33,8 +33,8 @@ public class SSL : MonoBehaviour, Game
         // if no -> welcome
         if(SaveSystem.instance.isPlayerRegistered())
         {
+            SaveSystem.instance.loadGameData(); 
             UISystem.instance.changeUIbyName("Home");
-            SaveSystem.instance.loadGameData(); // run it at last so that everything is already created and it will just overwrite with saved information.
         }
         else
         {

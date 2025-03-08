@@ -28,6 +28,7 @@ public class ProfileView : MonoBehaviour, View
         playerName.SetText(player.Name);
         playerStamina.SetText("Stamina : " + player.playerStats.Stamina.ToString() + " Pts ");
         playerStrength.SetText("Strength : " + player.playerStats.Strength.ToString() + " Pts ");
+        playerScore.SetText("Score : " + PlayerSystem.instance.currentPlayer.playerStats.Score);
 
         if(player.Rank != null)
             playerRank.SetText(player.Rank.RankTitle);
