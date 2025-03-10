@@ -6,11 +6,10 @@ public class HomeView : MonoBehaviour, View
 {
     private Canvas thisCanvas;
 
-    public TextMeshProUGUI taskText;
-
-    public GameObject rankSlider;
-    public GameObject taskViewParent;
-    public GameObject taskViewObj;
+    //private TextMeshProUGUI taskText;
+    [SerializeField] private GameObject rankSlider;
+    //private GameObject taskViewParent;
+    //private GameObject taskViewObj;
 
     // public void onFinish(GameObject btn)
     // {

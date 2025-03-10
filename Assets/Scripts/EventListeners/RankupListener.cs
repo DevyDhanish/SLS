@@ -14,11 +14,11 @@ public class RankupListener : MonoBehaviour
     {
         NotificationSystem.instance.showNotification(
             NotificationSystem.instance.createNotification_typeOK(
-                "Congratulations",
-                String.Format("{0} has ranked up to {1}", p.Name, r.RankTitle),
+                "RANK UP!",
+                String.Format("{0} has ascended to {1} Rank", p.Name, r.RankTitle),
                 (GameObject g) => {
                     // do anything you want when player clicks ok
-                    Debug.Log(p.Name);
+                    return;
                 }
             )
         );

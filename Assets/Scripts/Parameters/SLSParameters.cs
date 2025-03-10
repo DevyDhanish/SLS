@@ -1,10 +1,13 @@
+using System.ComponentModel;
 using UnityEngine;
 
 public class SLSParameters : Systems
 {
     public static SLSParameters instance;
 
-    [SerializeField] private int rewardOnTaskComplete;
+    [SerializeField] public int rewardOnTaskComplete;
+    [SerializeField] public string rankSliderTitleSufix;
+    [SerializeField] public string rankSliderTitlePrefix;
 
     public override void Init()
     {

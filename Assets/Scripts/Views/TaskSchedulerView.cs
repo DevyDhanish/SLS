@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -26,16 +27,55 @@ public class TaskSchedulerView : MonoBehaviour, View
 
         if (int.TryParse(setText, out int setCount))
         {
-            // result is your number, do what you need with it
+            
         }
         else
         {
-            Debug.Log("Invalid number format in TextMeshPro text. : " + setText);
+            NotificationSystem.instance.showNotification(
+                NotificationSystem.instance.createNotification_typeOK(
+                    "Error",
+                    "Invalid Sets x Reps",
+                    (GameObject g) => {
+                        return;
+                    }
+                )
+            );
+
+            return;
         }
 
-        // Debug.Log(taskSets.text);
-        // Int32.TryParse(taskSets.text, out set);
-        // Debug.Log(set);
+        //Debug.Log(taskDesc.text.Length);
+        if (string.IsNullOrWhiteSpace(taskDesc.text) || taskDesc.text.Length == 1)
+        {
+            NotificationSystem.instance.showNotification(
+                NotificationSystem.instance.createNotification_typeOK(
+                    "Error",
+                    "Invalid exercise name",
+                    (GameObject g) => {
+                        return;
+                    }
+                )
+            );
+
+            return;
+        }
+
+        string taskName = taskDesc.text.Trim();
+        if(taskName.Any(char.IsDigit))
+        {
+            NotificationSystem.instance.showNotification(
+                NotificationSystem.instance.createNotification_typeOK(
+                    "Error",
+                    "Wtf is that exercise name bruh.",
+                    (GameObject g) => {
+                        return;
+                    }
+                )
+            );
+
+            return;
+        }
+
 
         Task task = new Task(
             tt,

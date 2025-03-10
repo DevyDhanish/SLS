@@ -16,12 +16,14 @@ public class RankSlider : MonoBehaviour, View
 
         slider.value = PlayerSystem.instance.currentPlayer.playerStats.Score;
 
-        rankText.SetText(nextRankValues.RankTitle);
+        rankText.SetText(
+            SLSParameters.instance.rankSliderTitlePrefix + nextRankValues.RankTitle + SLSParameters.instance.rankSliderTitleSufix
+            );
     }
 
     public void Disable()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     // void Update()
@@ -31,7 +33,7 @@ public class RankSlider : MonoBehaviour, View
 
     public void Enable()
     {
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
 
         slider = gameObject.GetComponentInChildren<Slider>();
         rankText = gameObject.GetComponentInChildren<TextMeshProUGUI>();

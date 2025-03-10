@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Rank : SavableObject<Rank.RankSavableObject>
@@ -50,22 +49,16 @@ public class Rank : SavableObject<Rank.RankSavableObject>
     {
         return new List<Rank>
         {
-            new Rank(
-                "Un-Ranked",
-                0
-            ),
-            new Rank(
-                "F",
-                100
-            ),
-            new Rank(
-                "E",
-                200
-            ),
-            new Rank(
-                "D",
-                300
-            ),
+            new Rank("NR", 0),
+            new Rank("F", 100),
+            new Rank("E", 200),
+            new Rank("D", 300),
+            new Rank("C", 400),
+            new Rank("B", 500),
+            new Rank("A", 600),
+            new Rank("S", 700),
+            new Rank("SS", 800),
+            new Rank("SSS", 900)
         };
     }
 

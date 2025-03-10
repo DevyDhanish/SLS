@@ -4,6 +4,7 @@ using UnityEngine;
 public class ProfileView : MonoBehaviour, View
 {
     private Canvas thisCanvas;
+    [SerializeField] private GameObject rankSlider;
     [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private TextMeshProUGUI playerStamina;
     [SerializeField] private TextMeshProUGUI playerStrength;
@@ -17,6 +18,7 @@ public class ProfileView : MonoBehaviour, View
     public void Disable()
     {
         gameObject.SetActive(false);
+        rankSlider.GetComponent<View>().Disable();
     }
 
     public void Enable()
@@ -32,5 +34,7 @@ public class ProfileView : MonoBehaviour, View
 
         if(player.Rank != null)
             playerRank.SetText(player.Rank.RankTitle);
+
+        rankSlider.GetComponent<View>().Enable();
     }
 }

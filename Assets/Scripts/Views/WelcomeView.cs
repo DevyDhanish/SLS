@@ -7,11 +7,37 @@ public class WelcomeView : MonoBehaviour, View
         NotificationSystem.instance.showNotification(
             NotificationSystem.instance.createNotification_typePROMPT(
                 "What should I call you",
-                "Enter you name",
+                "*Player name cannot be more than 7 letters",
                 (GameObject g) => {
                     string playerName = g.GetComponent<PromptNotiBuilder>().getTextFromInputField();
-                    PlayerSystem.instance.createNewPlayer(playerName);
-                    UISystem.instance.changeUIbyName("Home");
+                    
+                    if(playerName.Length < 7 && !int.TryParse(playerName, out _))
+                    {
+                        PlayerSystem.instance.createNewPlayer(playerName);
+                        UISystem.instance.changeUIbyName("Home");
+
+                        return;
+                    }
+
+                    if(int.TryParse(playerName, out _))
+                    {
+                        NotificationSystem.instance.showNotification(
+                        NotificationSystem.instance.createNotification_typeOK(
+                            "Error",
+                            "Your name cannot be a number man, you a slave or sum ?",
+                            (GameObject g) => { return; }
+                        )
+                        );
+                        return;
+                    }
+
+                    NotificationSystem.instance.showNotification(
+                        NotificationSystem.instance.createNotification_typeOK(
+                            "Error",
+                            "Player name length cannot be more than 7 letters",
+                            (GameObject g) => { return; }
+                        )
+                    );
                 }
             )
         );
