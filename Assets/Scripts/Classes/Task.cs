@@ -8,13 +8,15 @@ public class Task
     public int TaskId {get; private set;}
     public TaskType.tasktype type {get; private set;}
     public string description {get; private set;}
+    public string variation { get; private set; }
     public int count {get; private set;}   // For repetitions (e.g., pushups)
     //public int duration; // For time-based tasks (e.g., planks in seconds)
     public int reward {get; private set;} // the amount of point to add to the stats of the player upon completion.
 
-    public Task(TaskType.tasktype type, int id, string description, int count, int duration, int reward) {
+    public Task(TaskType.tasktype type, int id, string description, string variation, int count, int duration, int reward) {
         this.TaskId = id;
         this.type = type;
+        this.variation = variation;
         this.description = description;
         this.count = count;
         //this.duration = duration;

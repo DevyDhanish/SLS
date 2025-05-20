@@ -9,6 +9,9 @@ public class Player
     public Rank Rank {get; private set;}// public int Score {get; private set;}
     public Stats playerStats {get; private set;}
     public string Category {get; private set;}
+    public int Age {get; private set;}
+    public int Height {get; private set;}
+    public int Weight {get; private set;}
 
     public Player(string name, Rank rank, Stats stats, string category)
     {
@@ -17,6 +20,21 @@ public class Player
         //Score = score;
         playerStats = stats;
         Category = category;
+    }
+
+    public void setAge(int age)
+    {
+        Age = age;
+    }
+
+    public void setHeight(int height)
+    {
+        Height = height;
+    }
+
+    public void setWeight(int weight)
+    {
+        Weight = weight;
     }
 
     public void setName(string name)

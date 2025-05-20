@@ -22,13 +22,22 @@ public class TaskUIController : MonoBehaviour, Controllers
         );
     }
 
+    private void changeToTaskCompletionVerifyView(int taskId)
+    {
+        TaskSystem.instance.currentActiveTaskId = taskId;
+        UISystem.instance.changeUIbyName("VerifyCompletion");
+    }
+
     private void OnTaskAdd(Task addedTask)
     {
         GameObject taskUI = Instantiate(taskUiObject);
 
+        GameObject first_child = taskUI.transform.GetChild(0).gameObject;
+        GameObject second_child = taskUI.transform.GetChild(1).gameObject;
+
         taskUI.transform.GetComponentInChildren<TextMeshProUGUI>().SetText(
             String.Format(
-                "[{0}] {1}",
+                "{1}",
                 addedTask.count.ToString(),
                 addedTask.description
             )
@@ -46,6 +55,11 @@ public class TaskUIController : MonoBehaviour, Controllers
         taskUI.transform.GetComponentInChildren<Button>().onClick.AddListener(() => OnTaskComBtnClick(
             taskUI.GetComponent<TaskUI>().TaskID
         ));
+
+        // attatch the text button to veriryScreen
+        second_child.transform.GetComponentInChildren<Button>().onClick.AddListener(() => changeToTaskCompletionVerifyView(
+                taskUI.GetComponent<TaskUI>().TaskID
+            ));
 
         taskUI.transform.SetParent(gameObject.transform);
     }

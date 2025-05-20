@@ -28,7 +28,7 @@ public class EventSystem : Systems
     public void FireUpdatePlayerRankEvent(Player player)
     {
         OnUpdatePlayerRank?.Invoke(player);
-        Debug.Log("Fired {Update player ranks}");
+        //Debug.Log("Fired {Update player ranks}");
     }
 
     // player ranked up event
@@ -38,7 +38,7 @@ public class EventSystem : Systems
     public void FirePlayerRankedUpEvent(Player player, Rank rank)
     {
         OnPlayerRankUp?.Invoke(player, rank);
-        Debug.Log("Fired {Player ranked up} " + rank.RankTitle);
+        //Debug.Log("Fired {Player ranked up} " + rank.RankTitle);
     }
 
     // task completed event
@@ -47,7 +47,7 @@ public class EventSystem : Systems
 
     public void FireTaskCompleteEvent(Task t){
         OnTaskComplete?.Invoke(t);
-        Debug.Log("Fired {Task completed}");
+        //Debug.Log("Fired {Task completed}");
     }
 
     // when saved
@@ -56,7 +56,7 @@ public class EventSystem : Systems
 
     public void FireOnGameSaved(){
         OnGameSaved?.Invoke();
-        Debug.Log("Fired {Game Save}");
+        //Debug.Log("Fired {Game Save}");
     }
 
     // when game get's loaded

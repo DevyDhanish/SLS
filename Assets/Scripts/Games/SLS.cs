@@ -59,9 +59,6 @@ public class SSL : MonoBehaviour, Game
         //     }
         //     )
         // );
-        
-        // This is just a playerholder player creator it will be replaced by the `welcome player` screen and that will create the player.
-        //Player.Init("Dhanish");
     }
     
     public void OnRunning()

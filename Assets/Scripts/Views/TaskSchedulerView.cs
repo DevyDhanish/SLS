@@ -1,13 +1,17 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 
 public class TaskSchedulerView : MonoBehaviour, View
 {
+    public TextMeshProUGUI goalText;
     public TextMeshProUGUI taskDesc;
     public TextMeshProUGUI taskType;
     public TMP_InputField taskSets;
+
+    public List<GoalsSOs> allGoals = new List<GoalsSOs>();
 
     public void OnClickAdd()
     {
@@ -81,12 +85,59 @@ public class TaskSchedulerView : MonoBehaviour, View
             tt,
             TaskSystem.instance.getNewTaskID(),
             taskDesc.text,
+            "Variations not available",
             setCount,
             0,
             SLSParameters.instance.getRewardOnTaskComplete()
         );
 
         TaskSystem.instance.pushTask(task);
+    }
+
+    public void onAddGoal()
+    {
+
+        // this does not return anything i forgot to change that
+
+        // change this to get workouts from goal text
+        Debug.Log(goalText.text);
+
+        string goal = goalText.text;
+
+        if(goal == "Build Muscles")
+        {
+            List<Task> t = WorkoutSystem.instance.getWorkouts(5, PlayerSystem.instance.currentPlayer.Age, TaskType.tasktype.STRENGTH);
+        }
+
+        if(goal == "Cut Fat")
+        {
+            List<Task> t = WorkoutSystem.instance.getWorkouts(5, PlayerSystem.instance.currentPlayer.Age, TaskType.tasktype.STAMINA);
+        }
+
+        if(goal == "Body Recomp")
+        {
+            List<Task> t = WorkoutSystem.instance.getWorkouts(5, PlayerSystem.instance.currentPlayer.Age, TaskType.tasktype.STRENGTH);
+        }
+
+        //foreach(GoalsSOs gs in allGoals)
+        //{
+        //    if(gs.goalName == goalText.text)
+        //    {
+        //        foreach(GoalsSOs.GoalTask gst in gs.taskNeeded)
+        //        {
+        //            Task task = new Task(
+        //                gst.type,
+        //                TaskSystem.instance.getNewTaskID(),
+        //                gst.taskName,
+        //                gst.setxreps,
+        //                0,
+        //                SLSParameters.instance.getRewardOnTaskComplete()
+        //            );
+
+        //            TaskSystem.instance.pushTask(task);
+        //        }
+        //    }
+        //}
     }
 
     public void OnClick()

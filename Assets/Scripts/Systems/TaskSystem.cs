@@ -8,6 +8,8 @@ public class TaskSystem : Systems, SavableObject<List<TaskSystem.TaskSaveObject>
 
     public List<Task> allTasks = new List<Task>();
 
+    public int currentActiveTaskId;
+
     [System.Serializable]
     public class TaskSaveObject
     {
@@ -46,6 +48,7 @@ public class TaskSystem : Systems, SavableObject<List<TaskSystem.TaskSaveObject>
                     t.type,
                     t.TaskId,
                     t.description,
+                    "loaded task not working",
                     t.count,
                     0,
                     t.reward

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68580529fb9daaa269bfa21f9a416101, type: 3}
+  m_Name: BuildMuscles
+  m_EditorClassIdentifier: 
+  goalName: Build Muscles
+  id: 0
+  taskNeeded:
+  - taskName: Day 1
+    type: 0
+    setxreps: 0
+  - taskName: Push ups
+    type: 0
+    setxreps: 60
+  - taskName: Pull ups
+    type: 0
+    setxreps: 60
+  - taskName: Waist Line Push ups
+    type: 0
+    setxreps: 60
+  - taskName: L sit
+    type: 0
+    setxreps: 60
+  - taskName: Repeat
+    type: 0
+    setxreps: 1
+  - taskName: Cardio
+    type: 1
+    setxreps: 10000
